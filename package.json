@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Domains18/school-api/issues"
   },
-  "homepage": "https://github.com/Domains18/school-api#readme"
+  "homepage": "https://github.com/Domains18/school-api#readme",
+  "dependencies": {
+    "typescript": "^4.9.4"
+  }
 }
