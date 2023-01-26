@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const student = new mongoose.Schema({
     name: {
         type: String,
@@ -28,7 +27,7 @@ const teacher = new mongoose.Schema({
     },
 });
 
-const parent = new mongoose.model({
+const guardian = new mongoose.model({
     name: {
         type: String,
         required: true,
@@ -45,6 +44,6 @@ const parent = new mongoose.model({
 
 const Student = mongoose.model("Student", student);
 const Teacher = mongoose.model("Teacher", teacher);
-const Parent = mongoose.model("Parent", parent);
+const Guardian = mongoose.model("Guardian", guardian);
 
-module.exports = { Student, Teacher, Parent };
+module.exports = { Student, Teacher, Guardian };
