@@ -79,5 +79,21 @@ const studentProfile = new mongoose.Schema({
             }
         }
     ],
-    
+    guardianNotification: [
+        {
+            teacherId: {
+                type: mongoose.Schema.Types.ObjectId,
+                required : true,
+            },
+            messages: [{
+                senderId: {
+                    type: String
+                },
+                msg: {
+                    type: String
+                }
+            }]
+        }
+    ]
+
 });
