@@ -42,3 +42,9 @@ const parent = new mongoose.model({
         required: true,
     }
 });
+
+const Student = mongoose.model("Student", student);
+const Teacher = mongoose.model("Teacher", teacher);
+const Parent = mongoose.model("Parent", parent);
+
+module.exports = { Student, Teacher, Parent };
