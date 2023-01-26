@@ -5,7 +5,7 @@ const { Student } = require('../models/registerSchema');
 const { TeacherProfile, StudentProfile, GuardianProfile } = require('../models/profileSchema');
 const { Course } = require('../models/courseSchema');
 
-router.post('/getAllChildren', async (req, res) => { 
+router.post('/getAllChildren', async (req, res) => {
     let allChildren = await Student.find();
     return res.json(allChildren);
 });
@@ -16,7 +16,7 @@ router.post('/my-child', async (req, res) => {
         let guardianProfile = await GuardianProfile.findOne({ guardianId });
         let myChildren = [];
 
-        for (i = 0; i < guardianProfile.myChildren.length; i++){
+        for (i = 0; i < guardianProfile.myChildren.length; i++) {
             let childProfile = await StudentProfile.findOne({
                 studentId: guardianProfile.myChildren[i].childId
             });
@@ -40,4 +40,27 @@ router.post("/remove-child", async (req, res) => {
     guardianProfile.myChildren = guardianProfile.myChildren.filter(child => child.childId != childId);
     guardianProfile.save();
     return res.json(guardianProfile);
+});
+
+
+router.post("allTeacherMemo", async (req, res) => {
+    const { childId } = req.body;
+    let childProfile = await StudentProfile.findOne({ studentId: childId });
+
+    let allTeacherMemo = childProfile.guardianNotification.map(async t => {
+        let TeacherProfile = await TeacherProfile.findOne({ teacherId: t.teacherId });
+        return {
+            teacherName: TeacherProfile.name,
+            teacherId: TeacherProfile.teacherId,
+        };
+
+
+    });
+    allTeacherMemo = await Promise.all(allTeacherMemo);
+    return res.json(allTeacherMemo);
+});
+
+router.post("allTeacherMemo", async (req, res) => {
+    const { childId, teacherId } = req.body;
+    let 
 });
