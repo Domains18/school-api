@@ -6,10 +6,11 @@ const colors = require('colors');
 const dotenv = require('dotenv').config();
 const PORT = process.env.PORT || 8000;
 // dependencies
-
+const databaseInstance = require('./conf/config');
 
 
 const server = express();
+databaseInstance()
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
