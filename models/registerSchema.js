@@ -28,4 +28,17 @@ const teacher = new mongoose.Schema({
     },
 });
 
-
+const parent = new mongoose.model({
+    name: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        required: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    }
+});
