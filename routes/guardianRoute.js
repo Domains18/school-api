@@ -25,3 +25,19 @@ router.post('/my-child', async (req, res) => {
         return res.json(myChildren);
     }, 3000);
 });
+
+router.post('/add-child', async (req, res) => {
+    const { guardianId, childId } = req.body;
+    let guardianProfile = await GuardianProfile.findOne({ guardianId });
+    guardianProfile.myChildren.unshift({ childId });
+    guardianProfile.save();
+    return res.json(guardianProfile);
+});
+
+router.post("/remove-child", async (req, res) => {
+    const { guardianId, childId } = req.body;
+    let guardianProfile = await GuardianProfile.findOne({ guardianId });
+    guardianProfile.myChildren = guardianProfile.myChildren.filter(child => child.childId != childId);
+    guardianProfile.save();
+    return res.json(guardianProfile);
+});
