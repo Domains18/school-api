@@ -5,6 +5,9 @@ const cors = require('cors');
 const colors = require('colors');
 const dotenv = require('dotenv').config();
 const PORT = process.env.PORT || 8000;
+// dependencies
+
+
 
 const server = express();
 
