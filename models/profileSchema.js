@@ -97,3 +97,27 @@ const studentProfile = new mongoose.Schema({
     ]
 
 });
+
+const guardianProfile = new mongoose.Schema({
+    guardianId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Guardian',
+        required: true
+    },
+    myChildren: [{
+        childId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Student',
+        },
+    }],
+});
+
+const TeacherProfile = mongoose.model("teacherProfile", teacherProfile);
+const StudentProfile = mongoose.model("studentProfile", studentProfile);
+const GuardianProfile = mongoose.model("guardianProfile", GuardianProfile);
+
+module.exports = {
+    TeacherProfile,
+    StudentProfile,
+    GuardianProfile,
+}
