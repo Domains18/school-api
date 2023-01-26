@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const { Student, Teacher, Guardian } = require('../models/registerSchema');
-const { teacherProfile, studentProfile, guardianProfile, StudentProfile, TeacherProfile } = require('../models/profileSchema');
+const { teacherProfile, studentProfile, guardianProfile, StudentProfile, TeacherProfile, GuardianProfile } = require('../models/profileSchema');
 
 router.post('/student', async (req, res) => {
     const { email, password } = req.body;
@@ -21,4 +21,12 @@ router.post('/teacher', async (req, res) => {
     } else return res.status(404).json("Teacher not found");
 });
 
+router.post('/parent', async (req, res) => {
+    const { email, password } = req.body;
+    let guardian = await GuardianProfile.find({ email, password });
+    if (guardian) {
+        let guardianProfile = await GuardianProfile.findOne({ guardianId: guardian._id });
+        return res.json({ data: guardianProfile, profile: guardianProfile });
 
+    } else return res.status(404).json("Guardian not found");
+});
