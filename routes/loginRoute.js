@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const { Student, Teacher, Guardian } = require('../models/registerSchema');
-const {teacherProfile, studentProfile, guardianProfile, StudentProfile, TeacherProfile} = require('../models/profileSchema');
+const { teacherProfile, studentProfile, guardianProfile, StudentProfile, TeacherProfile } = require('../models/profileSchema');
 
 router.post('/student', async (req, res) => {
     const { email, password } = req.body;
