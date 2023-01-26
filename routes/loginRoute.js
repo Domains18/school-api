@@ -30,3 +30,5 @@ router.post('/parent', async (req, res) => {
 
     } else return res.status(404).json("Guardian not found");
 });
+
+module.exports = router
