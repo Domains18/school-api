@@ -12,7 +12,7 @@ const teacherProfile = new mongoose.Schema({
     },
     students: [
         {
-            studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Students' },
+            studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Student' },
         }
     ],
     memo: [{
@@ -21,6 +21,10 @@ const teacherProfile = new mongoose.Schema({
             ref: 'Memo'
         }
     }],
+    department: {
+        type: String,
+        required: true
+    },
     courses: [
         {
             courseId: {
@@ -39,5 +43,41 @@ const studentProfile = new mongoose.Schema({
         ref: 'Student',
         required: true
     },
+    studentField: {
+        type: String,
+    },
+    studentName: {
+        type: String,
+        required: true
+    },
+    studentSemester: {
+        type: String,
+        required: true
+    },
+    studentDepartment: {
+        type: String,
+        required: true
+    },
+    teachers: [
+        {
+            teacherId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Teacher',
+                required: true
+            },
+        }
+    ],
+    teacherMemo: [
+        {
+            teacherId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Teacher',
+            },
+            memoId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Memo',
+            }
+        }
+    ],
     
 });
