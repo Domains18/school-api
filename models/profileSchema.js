@@ -112,9 +112,9 @@ const guardianProfile = new mongoose.Schema({
     }],
 });
 
+const GuardianProfile = mongoose.model("guardianProfile", guardianProfile);
 const TeacherProfile = mongoose.model("teacherProfile", teacherProfile);
 const StudentProfile = mongoose.model("studentProfile", studentProfile);
-const GuardianProfile = mongoose.model("guardianProfile", GuardianProfile);
 
 module.exports = {
     TeacherProfile,
