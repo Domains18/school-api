@@ -100,6 +100,14 @@ router.post("allCourse", async (req, res) => {
     let allCourses = await Course.find({ courseField: studentProfile.studentField, courseSemester: studentProfile.studentSemester });
 
     res.json(allCourses);
-    
+
 });
 
+
+router.post("/getStudentResults", async (req, res) => {
+    const { studentId, courseId } = req.body;
+
+    let course = await Course.find({ courseId });
+    let result = [];
+    for 
+});
