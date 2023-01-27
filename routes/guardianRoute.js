@@ -66,9 +66,9 @@ router.post('getTeacherMemo', async (req, res) => {
     let childProfile = await StudentProfile.findOne({ studentId: childId });
 
     let currentData = childProfile.guardianNotification.filter(not => not.teacherId.toString() == teacherId.toString())[0];
-    
+
     res.json(currentData);
-    
+
 });
 router.post("replyTeacherMemo", async (req, res) => {
     const { guardianId, childId, teacherId, msg } = req.body;
@@ -78,4 +78,28 @@ router.post("replyTeacherMemo", async (req, res) => {
 
     let index = childProfile.guardianNotification.indexOf(communicationObject);
     childProfile.guardianNotification[index].messages.push({ senderId: guardianId.toString(), msg });
+
+    childProfile.save();
+    // return res.json(childProfile);
+
+    let currentData = childProfile.guardianNotification.filter(not => not.teacherId.toString() == teacherId.toString())[0];
+    res.json(currentData);
 });
+
+
+router.post("allCourse", async (req, res) => {
+    let studentProfile = await StudentProfile.findOne({ studentId: req.body.studentId });
+
+    if (!studentProfile) return res.json({ error: "Student not found" });
+    if (!studentProfile.studentField || !studentProfile.studentSemester) {
+        res.json(false);
+        return res.json({ error: "Student field or semester not found" });
+
+    }
+
+    let allCourses = await Course.find({ courseField: studentProfile.studentField, courseSemester: studentProfile.studentSemester });
+
+    res.json(allCourses);
+    
+});
+
