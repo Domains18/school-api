@@ -60,7 +60,13 @@ router.post("allTeacherMemo", async (req, res) => {
     return res.json(allTeacherMemo);
 });
 
-router.post("allTeacherMemo", async (req, res) => {
+router.post('getTeacherMemo', async (req, res) => {
     const { childId, teacherId } = req.body;
-    let 
+
+    let childProfile = await StudentProfile.findOne({ studentId: childId });
+
+    let currentData = childProfile.guardianNotification.filter(not => not.teacherId.toString() == teacherId.toString())[0];
+    
+    res.json(currentData);
+    
 });
