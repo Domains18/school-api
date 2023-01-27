@@ -70,3 +70,12 @@ router.post('getTeacherMemo', async (req, res) => {
     res.json(currentData);
     
 });
+router.post("replyTeacherMemo", async (req, res) => {
+    const { guardianId, childId, teacherId, msg } = req.body;
+    let childProfile = await StudentProfile.findOne({ studentId: childId });
+
+    let communicationObject = childProfile.guardianNotification.filter(not => not.teacherId.toString() == teacherId.toString())[0];
+
+    let index = childProfile.guardianNotification.indexOf(communicationObject);
+    childProfile.guardianNotification[index].messages.push({ senderId: guardianId.toString(), msg });
+});
