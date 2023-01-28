@@ -119,3 +119,11 @@ router.post("getTeachercomms", async (re, res) => {
     res.json(currentData);
 
 });
+
+router.post("/teacherCourses", async (req, res) => {
+    const { teacherId, field, sem, courseName } = req.body;
+
+    let teacherProfile = await TeacherProfile.findOne({ teacherId });
+    let course = new courseSchema({ teacherId, teacherName: teacherProfile.teacherName, field, sem, courseName });
+    course.save()
+});
