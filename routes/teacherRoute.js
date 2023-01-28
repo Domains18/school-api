@@ -71,6 +71,14 @@ router.post("/add-student", async (req, res) => {
 router.post("/remove-student", async (req, res) => {
     const { student, teacherId } = req.body;
     let teacherProfile = await TeacherProfile.findOne({ teacherId });
-    teacherProfile.students = teacherProfile.students.filter(s => s.studentId.string() != studentId.toString());
+    teacherProfile.students = teacherProfile.students.filter(s => s.teacher.string() !== teacherId.toString());
+
+    teacherProfile.save();
+
+    let studentProfile = await StudentProfile.findOne({ studentId });
+    studentProfile.teacherMemo = studentProfile.teacherMemo.filter(
+        em => em.teacherId.toString() !== teacherId.toString()
+    );
     
 });
+
