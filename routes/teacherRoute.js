@@ -79,8 +79,7 @@ router.post("/remove-student", async (req, res) => {
     studentProfile.teacherMemo = studentProfile.teacherMemo.filter(em => em.teacherId.toString() !== teacherId.toString());
 
     studentProfile.teachers = studentProfile.teachers.filter(obj => obj.teacherId.toString() !== teacherId.toString())
-    studentProfile.save()
-
-
+    studentProfile.save();
+    return res.json(teacherProfile);
 });
 
