@@ -89,8 +89,8 @@ router.post("/myStudents", async (req, res) => {
         const { teacherId } = req.body;
         let teacherProfile = await TeacherProfile.findOne({ teacherId });
         let myStudents = [];
-        
-        for (i = 0; i <teacherProfile.students.length; i++){
+
+        for (i = 0; i < teacherProfile.students.length; i++) {
             let student = await StudentProfile.findOne({
                 studentId: teacherProfile.students[i].studentId
             });
