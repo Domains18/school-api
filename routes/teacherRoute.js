@@ -121,10 +121,8 @@ router.post("getTeachercomms", async (re, res) => {
 });
 
 router.post("/teacherCourses", async (req, res) => {
-    const { teacherId, field, sem, courseName } = req.body;
+    const { teacherId } = req.body;
 
-    let teacherProfile = await TeacherProfile.findOne({ teacherId });
-    let course = new courseSchema({ teacherId, teacherName: teacherProfile.teacherName, field, sem, courseName });
-    course.save();
-    teacherProfile.courses.push({ courseId: courseName._id})
+    let Courses = await courseSchema.find({ teacherId });
+    res.json(Courses);
 });
