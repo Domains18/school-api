@@ -126,3 +126,12 @@ router.post("/teacherCourses", async (req, res) => {
     let Courses = await courseSchema.find({ teacherId });
     res.json(Courses);
 });
+
+router.post("/newSubject", async (req, res) => {
+    const { teacherId, field, sem, courseName } = req.body;
+    const teacherProfile = await TeacherProfile.findOne({ teacherId });
+    let course = new courseSchema({
+        teacherId,
+        teacherName: teacherProfile.teacherName,
+    });
+});
