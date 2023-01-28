@@ -143,3 +143,6 @@ router.post("/newSubject", async (req, res) => {
     teacherProfile.save();
     res.json(true)
 });
+router.post("/notifToPar", async (req, res) => {
+    const { teacherId, studentId, msg } = req.body;
+});
