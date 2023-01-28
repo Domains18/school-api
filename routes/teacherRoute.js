@@ -102,5 +102,6 @@ router.post("/myStudents", async (req, res) => {
 
 
 router.post("getTeachercomms", async (re, res) => {
-    
+    const { teacherId, studentId } = req.body;
+    let studentProfile = await StudentProfile.findOne({ studentId})
 });
