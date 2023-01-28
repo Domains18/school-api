@@ -68,4 +68,4 @@ router.post("/add-student", async (req, res) => {
     return res.json(teacherProfile);
 });
 
-
+router.post("remove-student")
