@@ -111,4 +111,12 @@ router.post("getTeachercomms", async (re, res) => {
         studentProfile();
     }
     let currentData = studentProfile.guardianNotification.filter(noti => noti.teacherId.toString() === teacherId.toString())[0];
+
+    let index = studentProfile.guardianNotification[index].messages.push({
+        senderId: teacherId.toString(),
+        msg
+    });
+
+    studentProfile.save();
+    
 });
