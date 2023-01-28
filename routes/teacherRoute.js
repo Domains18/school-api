@@ -90,5 +90,13 @@ router.post("/myStudents", async (req, res) => {
         let teacherProfile = await TeacherProfile.findOne({ teacherId });
         let myStudents = [];
         
-    });
+        for (i = 0; i <teacherProfile.students.length; i++){
+            let student = await StudentProfile.findOne({
+                studentId: teacherProfile.students[i].studentId
+            });
+            if (student) myStudents.push(student);
+        }
+        res.json(myStudents)
+    }, 3000);
 });
+
