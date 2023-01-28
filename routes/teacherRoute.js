@@ -125,5 +125,6 @@ router.post("/teacherCourses", async (req, res) => {
 
     let teacherProfile = await TeacherProfile.findOne({ teacherId });
     let course = new courseSchema({ teacherId, teacherName: teacherProfile.teacherName, field, sem, courseName });
-    course.save()
+    course.save();
+    teacherProfile.courses.push({ courseId: courseName._id})
 });
