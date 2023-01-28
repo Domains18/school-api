@@ -100,3 +100,29 @@ router.post("/myStudents", async (req, res) => {
     }, 3000);
 });
 
+
+router.post("getTeachercomms", async (re, res) => {
+    const { teacherId, studentId } = req.body;
+    let studentProfile = await StudentProfile.findOne({ studentId });
+    let communicationObj = studentProfile.guardianNotification.filter(noti => noti.teacherId.toString() == teacherId.toString())[0];
+    
+    let index = studentProfile.guardianNotification.indexOf(communicationObj);
+    studentProfile.guardianNotification[index].messages.push({
+        senderId: teacher.toString(),
+        msg
+    });
+    studentProfile();
+    
+    let currentData = studentProfile.guardianNotification.filter(
+        noti => noti.teacherId.toString() === teacherId.toString())[0];
+    
+    res.json(currentData);
+
+});
+
+router.post("/teacherCourses", async (req, res) => {
+    const { teacherId } = req.body;
+
+    let Courses = await courseSchema.find({ teacherId });
+    res.json(Courses);
+});
