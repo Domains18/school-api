@@ -17,9 +17,9 @@ router.post("/memo", async (req, res) => {
         const { teacherId } = req.body;
         let teacherProfile = await TeacherProfile.findOne({ teacherId });
         let memos = [];
-        for (i = 0; i < teacherProfile.memo.length; i++){
+        for (i = 0; i < teacherProfile.memo.length; i++) {
             let memo = await memoSchema.findById(teacherProfile.memos[i].id);
-            
+
             if (memo) memos.push(memo)
         }
 
@@ -32,7 +32,7 @@ router.post("/singleMemo", async (req, res) => {
     const { teacherId, text } = req.body;
     const teacherProfile = await TeacherProfile.findOne({ teacherId });
 
-    if (req.body.memoId) { 
+    if (req.body.memoId) {
         let memo = await memoSchema.findById(req.body.memoId)
         memo.text = text;
         memo.save();
@@ -44,5 +44,7 @@ router.post("/singleMemo", async (req, res) => {
             name: teacherProfile.teacherName
         });
         memo.save();
+        teacherProfile.memo.unshift({ id: memo._id });
+        teacherProfile.save();
     }
 });
