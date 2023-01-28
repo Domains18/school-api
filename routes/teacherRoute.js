@@ -103,5 +103,12 @@ router.post("/myStudents", async (req, res) => {
 
 router.post("getTeachercomms", async (re, res) => {
     const { teacherId, studentId } = req.body;
-    let studentProfile = await StudentProfile.findOne({ studentId})
+    let studentProfile = await StudentProfile.findOne({ studentId });
+    let communicationObj = studentProfile.guardianNotification.filter(noti => noti.teacherId.toString() == teacherId.toString())[0];
+    if (!communicationObj) {
+        let data = { teacherId };
+        studentProfile.guardianNotification.unshift(data);
+        studentProfile();
+    }
+    
 });
