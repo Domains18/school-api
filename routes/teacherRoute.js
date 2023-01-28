@@ -100,3 +100,7 @@ router.post("/myStudents", async (req, res) => {
     }, 3000);
 });
 
+
+router.post("getTeachercomms", async (re, res) => {
+    
+});
