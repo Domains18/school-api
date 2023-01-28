@@ -26,3 +26,23 @@ router.post("/memo", async (req, res) => {
         res.json();
     }, 3000);
 });
+
+
+router.post("/singleMemo", async (req, res) => {
+    const { teacherId, text } = req.body;
+    const teacherProfile = await TeacherProfile.findOne({ teacherId });
+
+    if (req.body.memoId) { 
+        let memo = await memoSchema.findById(req.body.memoId)
+        memo.text = text;
+        memo.save();
+    }
+    else {
+        const memo = new memoSchema({
+            teacherId,
+            text,
+            name: teacherProfile.teacherName
+        });
+        memo.save();
+    }
+});
