@@ -18,8 +18,11 @@ router.post("/memo", async (req, res) => {
         let teacherProfile = await TeacherProfile.findOne({ teacherId });
         let memos = [];
         for (i = 0; i < teacherProfile.memo.length; i++){
-            let memo = await memoSchema.findById(teacherProfile.memos.push(memo)); 
+            let memo = await memoSchema.findById(teacherProfile.memos[i].id);
+            
+            if (memo) memos.push(memo)
         }
-        
-    });
+
+        res.json();
+    }, 3000);
 });
