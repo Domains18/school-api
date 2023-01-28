@@ -46,5 +46,18 @@ router.post("/singleMemo", async (req, res) => {
         memo.save();
         teacherProfile.memo.unshift({ id: memo._id });
         teacherProfile.save();
+
+        for (i = 0; teacherProfile.students.length; i++){
+            let studentProfile = await StudentProfile.findOne({
+                studentId: teacherProfile.students[i].studentId
+            });
+            studentProfile.teacherMemo.unshift({
+                teacherId, memoId: memo._id
+            });
+            studentProfile.save();
+        }
+
+        res.json("Success")
     }
+
 });
