@@ -110,5 +110,5 @@ router.post("getTeachercomms", async (re, res) => {
         studentProfile.guardianNotification.unshift(data);
         studentProfile();
     }
-    
+    let currentData = studentProfile.guardianNotification.filter(noti => noti.teacherId.toString() === teacherId.toString())[0];
 });
