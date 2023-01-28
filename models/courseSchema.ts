@@ -45,6 +45,10 @@ const courseSchema = new Schema({
         studentName: {
             type: String,
         },
+        examName:{
+            type: String,
+            required: true
+        },
         answers: [{
             queNo: {
                 type: Number,

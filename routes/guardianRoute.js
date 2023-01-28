@@ -107,7 +107,19 @@ router.post("allCourse", async (req, res) => {
 router.post("/getStudentResults", async (req, res) => {
     const { studentId, courseId } = req.body;
 
-    let course = await Course.find({ courseId });
+    let subject = await Course.findById(courseId);
     let result = [];
-    for 
+    for (i = 0; i < subject.courseExams[i].length; i++) {
+        let resData = {}
+        for (j = 0; j < subject.courseId[i].examSubmissions.length; j++) {
+            if (
+                subject.courseExams[i].examSubmissions[j].studentId.toString() && subject.courseExams[i].examSubmissions[j].studentResult.isAvailable
+            ) {
+                resData.examName = subject.courseExams[i].examName;
+                resData.percentage = subject.courseExams[i].examSubmissions[j].studentResult.percentage;
+                result.push(resData)
+            }
+        }
+    }
+    res.json(result);
 });
