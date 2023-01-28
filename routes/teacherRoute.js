@@ -59,3 +59,13 @@ router.post("/singleMemo", async (req, res) => {
         res.json("Success")
     }
 });
+
+router.post("/add-student", async (req, res) => {
+    const { studentId, teacherId } = req.body;
+    let teacherProfile = await TeacherProfile.findOne({ teacherId });
+    teacherProfile.students.unshift({ studentId });
+    teacherProfile.save();
+    return res.json(teacherProfile);
+});
+
+
