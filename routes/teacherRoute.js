@@ -59,3 +59,44 @@ router.post("/singleMemo", async (req, res) => {
         res.json("Success")
     }
 });
+
+router.post("/add-student", async (req, res) => {
+    const { studentId, teacherId } = req.body;
+    let teacherProfile = await TeacherProfile.findOne({ teacherId });
+    teacherProfile.students.unshift({ studentId });
+    teacherProfile.save();
+    return res.json(teacherProfile);
+});
+
+router.post("/remove-student", async (req, res) => {
+    const { student, teacherId } = req.body;
+    let teacherProfile = await TeacherProfile.findOne({ teacherId });
+    teacherProfile.students = teacherProfile.students.filter(s => s.teacher.string() !== teacherId.toString());
+
+    teacherProfile.save();
+
+    let studentProfile = await StudentProfile.findOne({ studentId });
+    studentProfile.teacherMemo = studentProfile.teacherMemo.filter(em => em.teacherId.toString() !== teacherId.toString());
+
+    studentProfile.teachers = studentProfile.teachers.filter(obj => obj.teacherId.toString() !== teacherId.toString())
+    studentProfile.save();
+    return res.json(teacherProfile);
+});
+
+
+router.post("/myStudents", async (req, res) => {
+    setTimeout(async () => {
+        const { teacherId } = req.body;
+        let teacherProfile = await TeacherProfile.findOne({ teacherId });
+        let myStudents = [];
+
+        for (i = 0; i < teacherProfile.students.length; i++) {
+            let student = await StudentProfile.findOne({
+                studentId: teacherProfile.students[i].studentId
+            });
+            if (student) myStudents.push(student);
+        }
+        res.json(myStudents)
+    }, 3000);
+});
+
