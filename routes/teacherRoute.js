@@ -3,6 +3,7 @@ const { Student } = require("/models/registerSchema");
 const { TeacherProfile, StudentProfile } = require("/models/profileSchema");
 const memoSchema = require("/models/memoSchema");
 const { Course } = require("/models/courseSchema");
+const save = require('save');
 
 
 router.get("/allStudents", async (req, res) => {
@@ -133,5 +134,12 @@ router.post("/newSubject", async (req, res) => {
     let course = new courseSchema({
         teacherId,
         teacherName: teacherProfile.teacherName,
+        field,
+        sem,
+        courseName
     });
+    course.save();
+    teacherProfile.push({ courseId: course._id });
+    teacherProfile.save();
+    res.json(true)
 });
