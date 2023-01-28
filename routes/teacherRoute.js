@@ -68,4 +68,9 @@ router.post("/add-student", async (req, res) => {
     return res.json(teacherProfile);
 });
 
-router.post("remove-student")
+router.post("/remove-student", async (req, res) => {
+    const { student, teacherId } = req.body;
+    let teacherProfile = await TeacherProfile.findOne({ teacherId });
+    teacherProfile.students = teacherProfile.students.filter(s => s.studentId.string() != studentId.toString());
+    
+});
