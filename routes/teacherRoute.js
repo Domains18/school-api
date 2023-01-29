@@ -4,6 +4,7 @@ const { TeacherProfile, StudentProfile } = require("/models/profileSchema");
 const memoSchema = require("/models/memoSchema");
 const { Course } = require("/models/courseSchema");
 const save = require('save');
+const { model } = require('mongoose');
 
 
 router.get("/allStudents", async (req, res) => {
@@ -159,3 +160,14 @@ router.post("/notifToPar", async (req, res) => {
     
     res.json(currentData);
 });
+
+router.post("/new-course", async (req, res) => {
+    const { teacherId } = req.body;
+
+    let courses = await courseSchema.find({ teacherId });
+
+    res.json(courses);
+});
+
+
+module.exports = router;
