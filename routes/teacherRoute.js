@@ -145,4 +145,6 @@ router.post("/newSubject", async (req, res) => {
 });
 router.post("/notifToPar", async (req, res) => {
     const { teacherId, studentId, msg } = req.body;
+    let studentProfile = await StudentProfile.findOne({ studentId });
+    let communicationObj = studentProfile
 });
