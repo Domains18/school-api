@@ -106,17 +106,17 @@ router.post("getTeachercomms", async (re, res) => {
     const { teacherId, studentId } = req.body;
     let studentProfile = await StudentProfile.findOne({ studentId });
     let communicationObj = studentProfile.guardianNotification.filter(noti => noti.teacherId.toString() == teacherId.toString())[0];
-    
+
     let index = studentProfile.guardianNotification.indexOf(communicationObj);
     studentProfile.guardianNotification[index].messages.push({
         senderId: teacher.toString(),
         msg
     });
     studentProfile();
-    
+
     let currentData = studentProfile.guardianNotification.filter(
         noti => noti.teacherId.toString() === teacherId.toString())[0];
-    
+
     res.json(currentData);
 
 });
@@ -146,5 +146,16 @@ router.post("/newSubject", async (req, res) => {
 router.post("/notifToPar", async (req, res) => {
     const { teacherId, studentId, msg } = req.body;
     let studentProfile = await StudentProfile.findOne({ studentId });
-    let communicationObj = studentProfile
+    let communicationObj = studentProfile.guardianNotification.filter(noti => noti.teacherId.toString() == teacherId.toString())[0];
+    let index = studentProfile.guardianNotification.indexOf(communicationObj);
+    studentProfile.guardianNotification[index].messages.push({
+        senderId: teacherId.toString(),
+        msg
+    });
+    studentProfile.save();
+
+    let currentData = studentProfile.guardianNotification.filter(
+        noti => noti.teacherId.toString() === teacherId.toString())[0];
+    
+    res.json(currentData);
 });
